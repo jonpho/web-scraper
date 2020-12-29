@@ -1,14 +1,9 @@
-import requests
-import pprint
-from bs4 import BeautifulSoup
+from response import Request
 
 url = 'https://kotaku.com/c/news'
 
-page = requests.get(url)
-
-soup = BeautifulSoup(page.content, 'html.parser')
-
-results = soup.find_all('article')
+kotaku_page = Request(url)
+results = kotaku_page.pageFindAll('article')
 
 article = []
 
