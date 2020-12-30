@@ -3,7 +3,7 @@ from response import Request
 url = 'https://kotaku.com/c/news'
 
 kotaku_page = Request(url)
-results = kotaku_page.pageFindAll('article')
+results = kotaku_page.page_find_all('article')
 
 article = []
 
