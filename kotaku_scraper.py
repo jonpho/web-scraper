@@ -32,4 +32,4 @@ class KotakuPage(BaseScraper):
 
 p = KotakuPage('https://kotaku.com/c/news', 'article')
 p.kotaku_results(p.results)
-print(p.article)
+print(p.article[0]["title"])

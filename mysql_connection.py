@@ -1,9 +1,11 @@
+from re import S
 import mysql.connector
+from mysql.connector.connection import MySQLConnection
 
-class MySQLConnect:
+class MySQLConnect(MySQLConnection):
     
-    def __init__(self, user, password, host, database):
-        self.user = user
+    def __init__(self, userid, password, host, database):
+        self.user = userid
         self.password = password
         self.host = host
         self.database = database
@@ -26,7 +28,24 @@ class MySQLConnect:
         mysql.connector.connection.MySQLConnection.close
         print('Connection Closed')
         
-    def insert_to_db(self, statement):
+    def insertCursor(self, info):
+        MySQLConnection.cursor(info)
+        
+    def testDataInsert(self):
+        ("INSERT INTO kutaku_news "
+             "(title, url, date)"
+             "VALUES (test1, test2, test3)")
+        
+    def insert_to_db(self, dataToInsert):
         self.connection()
         # Some Type of Insert Function or Command
+        for articleData in dataToInsert:
+            ("INSERT INTO kutaku_news "
+             "(title, url, date)"
+             "VALUES (test1, test2, test3)")
+            print(f"{articleData['title']}, {articleData['url']}, {articleData['date']}")
         self.close()
+
+
+testData = [{"title":"testTitle", "url":"TESTURL", "date":"10/03/79"}]
+m = MySQLConnect("root", "password", "127.0.0.1", "scraper")
