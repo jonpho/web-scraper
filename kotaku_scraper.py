@@ -9,8 +9,8 @@ class KotakuPage(BaseScraper):
         BaseScraper.__init__(self, url, param)
 
     def kotaku_date_cleanup(self, pulled_date):
-        pulled_date_with_year = Utilities.add_year_to_current_date(pulled_date)
-        cleaned_date = Utilities.convert_date_format(pulled_date_with_year)
+        # pulled_date_with_year = Utilities.add_year_to_current_date(pulled_date)
+        cleaned_date = Utilities.convert_date_format(pulled_date)
         return cleaned_date
     
     def kotaku_results(self, results):
@@ -18,18 +18,19 @@ class KotakuPage(BaseScraper):
             current_article = result
             article_dict = {}
             try:
-                print(current_article.h2.text)
-                print(current_article.find_all('a')[1]["href"])
-                print(current_article.find_all('div')[1].text)
+                # print(current_article)
+                # print(current_article.h2.text)
+                # print(current_article.find_all('a')[2]["href"])
+                # print(current_article.find_all('time')[0]["datetime"])
                 article_dict['title'] = current_article.h2.text
-                article_dict['link'] = current_article.find_all('a')[1]["href"]
-                article_dict['date'] = self.kotaku_date_cleanup(current_article.find_all('div')[1].text)
+                article_dict['link'] = current_article.find_all('a')[2]["href"]
+                article_dict['date'] = self.kotaku_date_cleanup(current_article.find_all('time')[0]["datetime"])
                 
                 self.article.append(article_dict)
             except AttributeError:
                 print("No article info in article")
 
 
-p = KotakuPage('https://kotaku.com/c/news', 'article')
+p = KotakuPage('https://kotaku.com/culture/news', 'article')
 p.kotaku_results(p.results)
-print(p.article[0]["title"])
+print(p.article)

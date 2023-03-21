@@ -10,9 +10,10 @@ class Utilities:
 
     @staticmethod
     def convert_date_format(date_to_convert):
-        # Convert date format that is Month and Day to Month, Day, Year.
-        # date_to_convert - The date format that needs to be used currently is a 3 leter month with day, and year. No comma's or slashes.
+        # Converts the date format string from "2023-03-17T13:10:00-04:00" by splitting out the time stamp and just using year month date.
+        date_time_array = date_to_convert.split("T")
         try:
-            return datetime.strptime(date_to_convert, '%b %d %Y').date().isoformat()
-        except ValueError:
+            return datetime.strptime(date_time_array[0], '%Y-%m-%d').date().isoformat()
+        except ValueError as e:
+            print(f'The following date format is not valid {e}. Returning a default date.')
             return datetime.today().date().isoformat()
